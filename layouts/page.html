@@ -1,14 +1,28 @@
 {{ define "main" }}
-<article class="site-container article-single">
-  <header class="article-header">
-    <h1>{{ .Title }}</h1>
-    {{ partial "article/meta.html" . }}
-  </header>
 
-  <div class="prose article-content">
-    {{ .Content }}
-  </div>
+    {{ if .Params.pdf }}
 
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
-</article>
+        {{ partial "document/pdf-viewer.html" . }}
+
+    {{ else }}
+
+        <article class="page">
+
+            <header class="page__header">
+
+                <h1 class="page__title">
+                    {{ .Title }}
+                </h1>
+
+            </header>
+
+
+            <div class="page__content">
+                {{ .Content }}
+            </div>
+
+        </article>
+
+    {{ end }}
+
 {{ end }}

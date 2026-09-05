@@ -1,0 +1,67 @@
+<section class="pdf-page">
+
+    <header class="pdf-page__header">
+
+        <div class="pdf-page__heading">
+
+            <h1 class="pdf-page__title">
+                {{ .Title }}
+            </h1>
+
+            {{ with .Params.description }}
+                <p class="pdf-page__description">
+                    {{ . }}
+                </p>
+            {{ end }}
+
+        </div>
+
+    </header>
+
+
+    {{ with .Params.pdf }}
+
+        <div class="pdf-viewer">
+
+            <iframe
+                class="pdf-viewer__frame"
+                src="{{ . | relURL }}"
+                title="{{ $.Title }}"
+                loading="eager">
+            </iframe>
+
+        </div>
+
+
+        <footer class="pdf-page__footer">
+
+            <span class="pdf-page__hint">
+                若浏览器无法正常显示 PDF，可直接打开原文件。
+            </span>
+
+            <a
+                class="pdf-page__open"
+                href="{{ . | relURL }}"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                新窗口打开 PDF
+
+            </a>
+
+        </footer>
+
+
+    {{ else }}
+
+        <div class="pdf-page__empty">
+
+            <p>
+                当前页面没有配置 PDF 文件。
+            </p>
+
+        </div>
+
+    {{ end }}
+
+</section>
