@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="site-container site-header__inner">
+    <a class="site-brand" href="{{ site.Home.RelPermalink }}" aria-label="返回{{ site.Title }}首页">
+      <span class="site-brand__logo-slot" aria-hidden="true">
+        {{- with site.Params.qingshuige.logo -}}
+          <img class="site-brand__logo" src="{{ . | relURL }}" alt="" width="36" height="36">
+        {{- else -}}
+          {{- /* Logo 槽位刻意保留为空；在 hugo.yaml 中配置 params.qingshuige.logo 后自动显示。 */ -}}
+          <span class="site-brand__logo-placeholder"></span>
+        {{- end -}}
+      </span>
+      <span class="site-brand__text">{{ site.Title }}</span>
+    </a>
+
+    {{ partial "site/menu.html" (dict "menuID" "main" "page" .) }}
+  </div>
+</header>

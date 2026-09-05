@@ -1,5 +1,28 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+
+{{- $pageTitle := site.Title -}}
+{{- if not .IsHome -}}
+  {{- $pageTitle = printf "%s · %s" .Title site.Title -}}
+{{- end -}}
+<title>{{ $pageTitle }}</title>
+
+{{- with or .Description .Summary site.Params.description -}}
+  <meta name="description" content="{{ . | plainify | htmlEscape }}">
+{{- end }}
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- if .IsHome }}
+<script>
+  try {
+    document.documentElement.dataset.qsgSplash = sessionStorage.getItem("qsg:splash-seen") === "1" ? "seen" : "pending";
+  } catch (_) {
+    document.documentElement.dataset.qsgSplash = "pending";
+  }
+</script>
+{{- end }}
+
 {{ partialCached "head/css.html" . }}
-{{ partialCached "head/js.html" . }}
+{{ partial "head/math.html" . }}

@@ -1,0 +1,80 @@
+.home-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: var(--qsg-paper-warm);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 500ms ease, visibility 500ms ease;
+}
+
+html[data-qsg-splash="seen"] .home-splash {
+  display: none;
+}
+
+.home-splash.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.home-splash__content {
+  max-width: min(90vw, 40rem);
+  text-align: center;
+  font-family: KaiTi, STKaiti, "KaiTi_GB2312", "楷体", serif;
+}
+
+.home-splash__quote,
+.home-splash__source {
+  margin: 0;
+  color: transparent;
+  background-image: linear-gradient(
+    100deg,
+    #9a9a96 0%,
+    #8d8d89 32%,
+    #111111 46%,
+    #111111 54%,
+    #8d8d89 68%,
+    #9a9a96 100%
+  );
+  background-size: 280% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: qsg-splash-text-scan 1.8s linear infinite;
+}
+
+.home-splash__quote {
+  font-size: 20px;
+  line-height: 1.65;
+  letter-spacing: 0.08em;
+}
+
+.home-splash__source {
+  margin-top: 1rem;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  animation-delay: 120ms;
+}
+
+@keyframes qsg-splash-text-scan {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-splash {
+    transition-duration: 120ms;
+  }
+
+  .home-splash__quote,
+  .home-splash__source {
+    color: #111111;
+    background: none;
+    animation: none;
+  }
+}

@@ -1,0 +1,13 @@
+<div class="article-meta">
+  {{- with .Date -}}
+    <time datetime="{{ .Format `2006-01-02T15:04:05Z07:00` }}">{{ .Format "2006-01-02" }}</time>
+  {{- end -}}
+
+  {{- with .Params.author -}}
+    <span class="article-meta__author">{{ . }}</span>
+  {{- end -}}
+
+  {{- if .ReadingTime -}}
+    <span class="article-meta__reading-time">约 {{ .ReadingTime }} 分钟阅读</span>
+  {{- end -}}
+</div>

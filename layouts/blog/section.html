@@ -1,11 +1,11 @@
 {{ define "main" }}
-<div class="site-container page-term">
+<div class="site-container page-section page-section--blog">
   <header class="page-header">
     <h1>{{ .Title }}</h1>
     {{- with .Content -}}<div class="prose">{{ . }}</div>{{- end -}}
   </header>
 
-  <section class="article-list">
+  <section class="article-list" aria-label="博客文章">
     {{- range .Pages.ByDate.Reverse -}}
       {{ partial "article/card.html" . }}
     {{- end -}}

@@ -1,15 +1,8 @@
+@import "foundation/tokens.css";
+@import "foundation/base.css";
+@import "foundation/content.css";
 @import "components/header.css";
 @import "components/footer.css";
-
-body {
-  color: #222;
-  font-family: sans-serif;
-  line-height: 1.5;
-  margin: 1rem;
-  max-width: 768px;
-}
-
-a {
-  color: #00e;
-  text-decoration: none;
-}
+@import "components/article.css";
+@import "components/splash.css";
+@import "pages/home.css";

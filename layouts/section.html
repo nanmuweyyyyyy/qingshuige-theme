@@ -1,10 +1,14 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
+<div class="site-container page-section">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Content -}}<div class="prose">{{ . }}</div>{{- end -}}
+  </header>
+
+  <section class="article-list">
+    {{- range .Pages.ByDate.Reverse -}}
+      {{ partial "article/card.html" . }}
+    {{- end -}}
+  </section>
+</div>
 {{ end }}

@@ -1,0 +1,17 @@
+{{- $blogPages := where site.RegularPages "Section" "blog" -}}
+{{- $recent := first 20 $blogPages.ByDate.Reverse -}}
+<section class="home-recent" aria-labelledby="home-recent-title">
+  <header class="home-recent__header">
+    <h1 id="home-recent-title" class="home-recent__title">最新文章</h1>
+  </header>
+
+  {{- if $recent -}}
+    <div class="home-post-grid">
+      {{- range $recent -}}
+        {{ partial "home/article-card.html" . }}
+      {{- end -}}
+    </div>
+  {{- else -}}
+    <p class="home-recent__empty">暂时还没有文章。</p>
+  {{- end -}}
+</section>

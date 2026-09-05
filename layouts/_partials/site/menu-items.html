@@ -1,0 +1,49 @@
+{{- $entries := .entries -}}
+{{- $page := .page -}}
+{{- $level := .level | default 0 -}}
+
+{{- range $entries -}}
+  {{- $isCurrent := or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) -}}
+  {{- $isAvatar := .Params.avatar | default false -}}
+  {{- $isPlaceholder := .Params.placeholder | default false -}}
+  {{- $hasChildren := .HasChildren -}}
+  {{- $itemID := printf "qsg-menu-%s" (.Identifier | default (.Name | urlize)) -}}
+
+  <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}{{ if $isAvatar }} site-nav__item--avatar{{ end }}">
+    {{- if $hasChildren -}}
+      <button
+        class="site-nav__link site-nav__trigger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="{{ $itemID }}"
+        data-menu-trigger
+        {{ if $isCurrent }}data-menu-current="true"{{ end }}
+      >
+        <span>{{ .Name }}</span>
+        <svg class="site-nav__chevron" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <ul class="site-nav__submenu" id="{{ $itemID }}" data-menu-submenu>
+        {{- partial "site/menu-items.html" (dict "entries" .Children "page" $page "level" (add $level 1)) -}}
+      </ul>
+    {{- else if $isAvatar -}}
+      {{- $avatar := site.Params.qingshuige.avatar | default "qingshuige/defaults/avatar.svg" -}}
+      {{- if $isPlaceholder -}}
+        <button class="site-nav__avatar-link site-nav__placeholder" type="button" title="{{ .Name }}（待开发）" aria-label="{{ .Name }}，待开发">
+          <img class="site-nav__avatar" src="{{ $avatar | relURL }}" alt="" width="36" height="36">
+        </button>
+      {{- else -}}
+        <a class="site-nav__avatar-link" href="{{ .URL }}" title="{{ .Name }}" aria-label="{{ .Name }}"{{ if $isCurrent }} aria-current="page"{{ end }}>
+          <img class="site-nav__avatar" src="{{ $avatar | relURL }}" alt="" width="36" height="36">
+        </a>
+      {{- end -}}
+    {{- else if $isPlaceholder -}}
+      <button class="site-nav__link site-nav__placeholder" type="button" title="{{ .Name }}（待开发）" aria-label="{{ .Name }}，待开发">
+        {{ .Name }}
+      </button>
+    {{- else -}}
+      <a class="site-nav__link" href="{{ .URL }}"{{ if $isCurrent }} aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{- end -}}
+  </li>
+{{- end -}}

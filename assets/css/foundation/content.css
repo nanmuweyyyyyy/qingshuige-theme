@@ -1,0 +1,21 @@
+.prose {
+  max-width: var(--qsg-reading-width);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+.prose pre {
+  overflow-x: auto;
+}
+
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}

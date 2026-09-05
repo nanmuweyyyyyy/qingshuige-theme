@@ -1,4 +1,14 @@
-footer {
-  border-top: 1px solid #222;
-  margin-top: 1rem;
+.site-footer {
+  color: var(--qsg-muted);
+  background: var(--qsg-paper);
+  border-top: 1px solid var(--qsg-border);
+}
+
+.site-footer__inner {
+  padding-block: var(--qsg-space-4);
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 0.88rem;
 }

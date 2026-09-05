@@ -1,9 +1,7 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
+  {{ partial "home/splash.html" . }}
+
+  <div class="site-container page-home">
+    {{ partial "home/recent-posts.html" . }}
+  </div>
 {{ end }}

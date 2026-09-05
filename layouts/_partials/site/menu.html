@@ -1,0 +1,9 @@
+{{- $page := .page -}}
+{{- $menuID := .menuID -}}
+{{- with index site.Menus $menuID -}}
+<nav class="site-nav" aria-label="主导航" data-site-nav>
+  <ul class="site-nav__list">
+    {{- partial "site/menu-items.html" (dict "entries" . "page" $page "level" 0) -}}
+  </ul>
+</nav>
+{{- end -}}
