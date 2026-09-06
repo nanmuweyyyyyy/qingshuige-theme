@@ -1,14 +1,72 @@
 {{ define "main" }}
-<div class="site-container page-section page-section--blog">
-  <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{- with .Content -}}<div class="prose">{{ . }}</div>{{- end -}}
-  </header>
 
-  <section class="article-list" aria-label="博客文章">
-    {{- range .Pages.ByDate.Reverse -}}
-      {{ partial "article/card.html" . }}
-    {{- end -}}
+<div class="site-container page-home">
+
+  <section
+    class="home-recent"
+    aria-labelledby="blog-section-title"
+  >
+
+    <!-- 当前分类标题 -->
+    <header class="home-recent__header">
+
+      <h1
+        id="blog-section-title"
+        class="home-recent__title"
+      >
+        {{ .Title }}
+      </h1>
+
+      {{- with .Content }}
+
+        <div class="prose">
+          {{ . }}
+        </div>
+
+      {{- end }}
+
+    </header>
+
+
+    <!--
+      获取当前分类下的全部文章。
+
+      /blog/
+      → 获取整个 blog 下所有文章。
+
+      /blog/诗/
+      → 获取“诗”下面所有文章。
+
+      /blog/文/
+      → 获取“文”下面所有文章。
+
+      不限制文章数量。
+    -->
+    {{- $pages := .RegularPagesRecursive.ByDate.Reverse -}}
+
+
+    {{- if $pages }}
+
+      <div class="home-post-grid">
+
+        {{- range $pages }}
+
+          {{ partial "home/article-card.html" . }}
+
+        {{- end }}
+
+      </div>
+
+    {{- else }}
+
+      <p class="home-recent__empty">
+        暂时还没有文章。
+      </p>
+
+    {{- end }}
+
   </section>
+
 </div>
+
 {{ end }}
