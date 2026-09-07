@@ -1,0 +1,147 @@
+{{- $currentPage := . -}}
+{{- $categories := .GetTerms "categories" -}}
+
+<nav class="article-navigation" aria-label="文章导航">
+
+  {{- if $categories }}
+
+    {{- $category := index $categories 0 -}}
+
+    {{/* 与分类页保持一致，按发布时间从新到旧排列 */}}
+    {{- $articles := where $category.Pages "Section" "blog" -}}
+    {{- $articles = $articles.ByDate.Reverse -}}
+
+    {{- $currentIndex := -1 -}}
+
+    {{/* 查找当前文章在分类列表中的位置 */}}
+    {{- range $index, $article := $articles }}
+
+      {{- if eq $article.RelPermalink $currentPage.RelPermalink }}
+        {{- $currentIndex = $index -}}
+      {{- end }}
+
+    {{- end }}
+
+    {{- $previousArticle := false -}}
+    {{- $nextArticle := false -}}
+
+    {{- if ge $currentIndex 0 }}
+
+      {{/* 列表中的上一项 */}}
+      {{- if gt $currentIndex 0 }}
+
+        {{- $previousIndex := sub $currentIndex 1 -}}
+        {{- $previousArticle = index $articles $previousIndex -}}
+
+      {{- end }}
+
+      {{/* 列表中的下一项 */}}
+      {{- $nextIndex := add $currentIndex 1 -}}
+
+      {{- if lt $nextIndex (len $articles) }}
+
+        {{- $nextArticle = index $articles $nextIndex -}}
+
+      {{- end }}
+
+    {{- end }}
+
+
+    {{- if or $previousArticle $nextArticle }}
+
+      <div class="article-navigation__posts">
+
+        <div class="article-navigation__previous">
+
+          {{- with $previousArticle }}
+
+            <a
+              class="article-navigation__link"
+              href="{{ .RelPermalink }}"
+              rel="prev"
+            >
+
+              <span class="article-navigation__label">
+                ← 上一篇
+              </span>
+
+              <span class="article-navigation__title">
+                {{ .LinkTitle }}
+              </span>
+
+            </a>
+
+          {{- end }}
+
+        </div>
+
+
+        <div class="article-navigation__next">
+
+          {{- with $nextArticle }}
+
+            <a
+              class="article-navigation__link"
+              href="{{ .RelPermalink }}"
+              rel="next"
+            >
+
+              <span class="article-navigation__label">
+                下一篇 →
+              </span>
+
+              <span class="article-navigation__title">
+                {{ .LinkTitle }}
+              </span>
+
+            </a>
+
+          {{- end }}
+
+        </div>
+
+      </div>
+
+    {{- end }}
+
+
+    <div class="article-navigation__back">
+
+      <a href="{{ $category.RelPermalink }}">
+        返回「{{ $category.LinkTitle }}」
+      </a>
+
+    </div>
+
+
+  {{- else }}
+
+    <div class="article-navigation__back">
+
+      <a href="{{ "/blog/" | relURL }}">
+        返回全部文章
+      </a>
+
+    </div>
+
+  {{- end }}
+
+</nav>
+<!--文章正常只有一个分类时：
+
+categories:
+  - "学"
+
+它使用这个分类。
+
+如果未来某篇旧文章没有 categories，不会报错，而是变成：
+
+返回全部文章
+
+如果当前分类只有这一篇文章，也不会出现两个空白的“上一篇 / 下一篇”，只显示：
+
+返回「学」
+
+如果当前文章是分类里最新的一篇，没有“下一篇”，则只显示上一篇；如果是最早的一篇，就只显示下一篇。
+
+所以不需要针对边界文章做特殊处理。-->

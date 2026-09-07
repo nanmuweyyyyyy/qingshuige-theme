@@ -1,14 +1,42 @@
 {{ define "main" }}
+
 <div class="site-container page-section">
+
   <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{- with .Content -}}<div class="prose">{{ . }}</div>{{- end -}}
+
+    <h1>
+      {{ .Title }}
+    </h1>
+
+    {{- with .Content }}
+
+      <div class="prose">
+        {{ . }}
+      </div>
+
+    {{- end }}
+
   </header>
 
-  <section class="article-list">
-    {{- range .Pages.ByDate.Reverse -}}
-      {{ partial "article/card.html" . }}
-    {{- end -}}
-  </section>
+  {{- $pages := .RegularPages.ByDate.Reverse -}}
+
+  {{- if $pages }}
+
+    <section
+      class="article-list"
+      aria-label="{{ .Title }}"
+    >
+
+      {{- range $pages }}
+
+        {{ partial "article/card.html" . }}
+
+      {{- end }}
+
+    </section>
+
+  {{- end }}
+
 </div>
+
 {{ end }}

@@ -1,14 +1,110 @@
 {{ define "main" }}
+
+
+{{/* =========================================================
+     Categories 分类页面
+     ========================================================= */}}
+
+{{- if eq .Data.Plural "categories" -}}
+
+<div class="site-container page-home">
+
+  <section
+    class="home-recent"
+    aria-labelledby="category-title"
+  >
+
+    <!-- 当前分类名称 -->
+
+    <header class="home-recent__header">
+
+      <h1
+        id="category-title"
+        class="home-recent__title"
+      >
+        {{ .Title }}
+      </h1>
+
+    </header>
+
+
+    <!--
+      当前 Category 中属于 blog Section 的全部文章。
+      不限制数量。
+    -->
+
+    {{- $pages := where .Pages "Section" "blog" -}}
+    {{- $pages = $pages.ByDate.Reverse -}}
+
+
+    {{- if $pages }}
+
+      <div class="home-post-grid">
+
+        {{- range $pages }}
+
+          {{ partial "home/article-card.html" . }}
+
+        {{- end }}
+
+      </div>
+
+    {{- else }}
+
+      <p class="home-recent__empty">
+        暂时还没有文章。
+      </p>
+
+    {{- end }}
+
+  </section>
+
+</div>
+
+
+{{/* =========================================================
+     其他 Term，例如 tags
+     ========================================================= */}}
+
+{{- else -}}
+
 <div class="site-container page-term">
+
   <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{- with .Content -}}<div class="prose">{{ . }}</div>{{- end -}}
+
+    <h1>
+      {{ .Title }}
+    </h1>
+
+
+    {{- with .Content }}
+
+      <div class="prose">
+        {{ . }}
+      </div>
+
+    {{- end }}
+
   </header>
 
-  <section class="article-list">
-    {{- range .Pages.ByDate.Reverse -}}
-      {{ partial "article/card.html" . }}
-    {{- end -}}
-  </section>
+
+  {{- if .Pages }}
+
+    <section class="article-list">
+
+      {{- range .Pages.ByDate.Reverse }}
+
+        {{ partial "article/card.html" . }}
+
+      {{- end }}
+
+    </section>
+
+  {{- end }}
+
 </div>
+
+{{- end -}}
+
+
 {{ end }}

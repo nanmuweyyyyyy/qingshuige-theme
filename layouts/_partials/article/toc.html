@@ -1,0 +1,28 @@
+{{- if .Params.toc -}}
+
+  {{- $toc := .TableOfContents -}}
+  {{- $items := findRE `<li>` $toc -}}
+
+  {{- if gt (len $items) 0 -}}
+
+    <aside
+      class="article-toc"
+      aria-labelledby="article-toc-title"
+    >
+
+      <div
+        id="article-toc-title"
+        class="article-toc__title"
+      >
+        目录
+      </div>
+
+      <div class="article-toc__content">
+        {{ $toc }}
+      </div>
+
+    </aside>
+
+  {{- end -}}
+
+{{- end -}}

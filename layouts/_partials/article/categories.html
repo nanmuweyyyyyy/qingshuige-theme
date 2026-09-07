@@ -1,0 +1,14 @@
+{{- with .GetTerms "categories" }}
+<nav class="article-categories" aria-label="文章分类">
+  {{- range . }}
+    <a
+      class="article-category"
+      href="{{ .RelPermalink }}"
+      rel="tag"
+    >
+      {{ .LinkTitle }}
+    </a>
+  {{- end }}
+</nav>
+{{- end }}
+<!--如果未来意外出现两个分类，它也可以正常显示两个，模板本身不写死五种分类-->

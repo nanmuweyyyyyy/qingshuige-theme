@@ -1,14 +1,31 @@
 {{ define "main" }}
+
 <article class="site-container article-single article-single--blog">
+
   <header class="article-header">
-    <h1>{{ .Title }}</h1>
+
+    {{ partial "article/categories.html" . }}
+
+    <h1 class="article-title">
+      {{ .Title }}
+    </h1>
+
     {{ partial "article/meta.html" . }}
+
   </header>
+  
+  {{ partial "article/toc.html" . }}
 
   <div class="prose article-content">
     {{ .Content }}
   </div>
 
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  <footer class="article-footer">
+    {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+
+    {{ partial "article/navigation.html" . }}
+  </footer>
+
 </article>
+
 {{ end }}

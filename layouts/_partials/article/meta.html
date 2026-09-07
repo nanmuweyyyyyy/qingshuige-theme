@@ -1,13 +1,33 @@
+{{- $author := .Params.author | default site.Params.author.name -}}
+
 <div class="article-meta">
-  {{- with .Date -}}
-    <time datetime="{{ .Format `2006-01-02T15:04:05Z07:00` }}">{{ .Format "2006-01-02" }}</time>
-  {{- end -}}
 
-  {{- with .Params.author -}}
-    <span class="article-meta__author">{{ . }}</span>
-  {{- end -}}
+  {{- with $author }}
+    <span class="article-meta__author">
+      {{ . }}
+    </span>
+  {{- end }}
 
-  {{- if .ReadingTime -}}
-    <span class="article-meta__reading-time">约 {{ .ReadingTime }} 分钟阅读</span>
-  {{- end -}}
+  {{- with .Date }}
+    <time
+      class="article-meta__date"
+      datetime="{{ .Format `2006-01-02T15:04:05Z07:00` }}"
+    >
+      {{ .Format "2006-01-02" }}
+    </time>
+  {{- end }}
+
+  {{- with .ReadingTime }}
+    <span class="article-meta__reading-time">
+      约 {{ . }} 分钟阅读
+    </span>
+  {{- end }}
+
 </div>
+<!--如果以后某篇文章没写作者，则自动回退到你 hugo.yaml 里的：
+
+params:
+  author:
+    name: "清水阁"
+
+所以不会出现作者区域完全异常。-->
