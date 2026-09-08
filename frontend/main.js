@@ -1,13 +1,9 @@
-/**
- * Vue island entry point for qingshuige-theme.
- *
- * Hugo owns the document and page rendering. Vue will only mount into
- * explicitly marked islands. Components will be registered here as the
- * interactive design is implemented.
- */
 import { createApp } from "vue"
+import SearchPanel from "./components/SearchPanel.vue"
 
-const components = Object.freeze({})
+const components = Object.freeze({
+  SearchPanel
+})
 
 for (const element of document.querySelectorAll("[data-vue-component]")) {
   const name = element.dataset.vueComponent
@@ -18,5 +14,9 @@ for (const element of document.querySelectorAll("[data-vue-component]")) {
     continue
   }
 
-  createApp(component).mount(element)
+  const props = name === "SearchPanel"
+    ? { indexUrl: element.dataset.searchIndexUrl }
+    : {}
+
+  createApp(component, props).mount(element)
 }

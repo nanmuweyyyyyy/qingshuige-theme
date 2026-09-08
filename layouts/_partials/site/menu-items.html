@@ -6,11 +6,31 @@
   {{- $isCurrent := or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) -}}
   {{- $isAvatar := .Params.avatar | default false -}}
   {{- $isPlaceholder := .Params.placeholder | default false -}}
+  {{- $action := .Params.action | default "" -}}
+  {{- $isSearch := eq $action "search" -}}
+  {{- $searchEnabled := site.Params.qingshuige.search.enabled | default false -}}
   {{- $hasChildren := .HasChildren -}}
   {{- $itemID := printf "qsg-menu-%s" (.Identifier | default (.Name | urlize)) -}}
 
-  <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}{{ if $isAvatar }} site-nav__item--avatar{{ end }}">
-    {{- if $hasChildren -}}
+  {{- if or (not $isSearch) $searchEnabled -}}
+  <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}{{ if $isAvatar }} site-nav__item--avatar{{ end }}{{ if $isSearch }} site-nav__item--search{{ end }}">
+    {{- if $isSearch -}}
+      <button
+        class="site-nav__search-trigger"
+        type="button"
+        data-search-trigger
+        aria-label="{{ .Name }}文章"
+        aria-haspopup="dialog"
+        aria-controls="qsg-search-dialog"
+        aria-expanded="false"
+        title="{{ .Name }}（Ctrl/⌘ + K）"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5"/>
+          <path d="m16 16 4.2 4.2"/>
+        </svg>
+      </button>
+    {{- else if $hasChildren -}}
       <button
         class="site-nav__link site-nav__trigger"
         type="button"
@@ -46,4 +66,5 @@
       <a class="site-nav__link" href="{{ .URL }}"{{ if $isCurrent }} aria-current="page"{{ end }}>{{ .Name }}</a>
     {{- end -}}
   </li>
+  {{- end -}}
 {{- end -}}

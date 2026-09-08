@@ -84,7 +84,11 @@ params:
 
 ## Vue / Vite
 
-Vue 3 + Vite 的开发底座仍保留在 `frontend/`，但 v0.2 首页没有为了开屏或下拉菜单加载 Vue。当前交互使用少量原生 JavaScript；等全文搜索、图片查看器等真正需要组件状态的功能出现时，再通过 Islands 模式启用 Vue。
+搜索现已使用 Vue Islands 组件，开屏和下拉菜单继续使用原生 JavaScript。搜索启用时，Hugo 在页面底部挂载 frontend/components/SearchPanel.vue。
+
+在主题目录运行 npm ci、npm run build，生成 assets/qingshuige-vue/ 中的单文件 JS 和 CSS；Hugo 为两者添加内容指纹并加载。发布包已包含这些产物，直接运行 Hugo 无需重编译。不要继续使用旧的 static/qingshuige-vue/ 输出或手工替换其子模块。
+
+npm test 会先重新构建，再执行搜索客户端及生产脚本的 DOM 交互回归测试。更多说明见主站根目录的 SEARCH-FIX-README.md。
 
 ## Logo 与头像
 
