@@ -1,10 +1,17 @@
 {{- $author := .Params.author | default site.Params.author.name -}}
+{{- $authorTerms := .GetTerms "author" -}}
 
 <div class="article-meta">
 
   {{- with $author }}
     <span class="article-meta__author">
-      {{ . }}
+      {{- with $authorTerms -}}
+        {{- range . -}}
+          <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        {{- end -}}
+      {{- else -}}
+        {{ . }}
+      {{- end -}}
     </span>
   {{- end }}
 

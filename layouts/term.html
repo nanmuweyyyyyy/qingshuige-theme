@@ -2,24 +2,24 @@
 
 
 {{/* =========================================================
-     Categories 分类页面
+     Categories 和 Author 页面
      ========================================================= */}}
 
-{{- if eq .Data.Plural "categories" -}}
+{{- if or (eq .Data.Plural "categories") (eq .Data.Plural "author") -}}
 
 <div class="site-container page-home">
 
   <section
     class="home-recent"
-    aria-labelledby="category-title"
+    aria-labelledby="term-title"
   >
 
-    <!-- 当前分类名称 -->
+    <!-- 当前分类或作者名称 -->
 
     <header class="home-recent__header">
 
       <h1
-        id="category-title"
+        id="term-title"
         class="home-recent__title"
       >
         {{ .Title }}
@@ -29,7 +29,7 @@
 
 
     <!--
-      当前 Category 中属于 blog Section 的全部文章。
+      当前分类或作者中属于 blog Section 的全部文章。
       不限制数量。
     -->
 

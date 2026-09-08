@@ -5,6 +5,7 @@
   {{- $summarySource = .Plain | plainify | strings.TrimSpace -}}
 {{- end -}}
 {{- $summarySource = replaceRE `\s+` " " $summarySource -}}
+{{- $summarySource = $summarySource | truncate 240 -}}
 
 <article class="home-post-card">
   <a

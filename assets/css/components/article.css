@@ -221,6 +221,10 @@
   border-bottom: 1px solid var(--qsg-border);
 }
 
+.article-card .article-meta {
+  justify-content: flex-start;
+}
+
 .article-card__title {
   margin-top: 0;
   margin-bottom: var(--qsg-space-1);
