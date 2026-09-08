@@ -1,8 +1,4 @@
 {{- $fullTitle := .LinkTitle | plainify | strings.TrimSpace -}}
-{{- $displayTitle := $fullTitle -}}
-{{- if gt (strings.RuneCount $fullTitle) 8 -}}
-  {{- $displayTitle = printf "%s…" (strings.SliceString $fullTitle 0 8) -}}
-{{- end -}}
 
 {{- $summarySource := .Description | plainify | strings.TrimSpace -}}
 {{- if not $summarySource -}}
@@ -17,7 +13,7 @@
     title="{{ $fullTitle }}"
     aria-label="阅读文章：{{ $fullTitle }}"
   >
-    <h2 class="home-post-card__title">{{ $displayTitle }}</h2>
+    <h2 class="home-post-card__title">{{ $fullTitle }}</h2>
     {{- with $summarySource -}}
       <p class="home-post-card__summary">{{ . }}</p>
     {{- end -}}

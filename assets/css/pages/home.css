@@ -91,11 +91,14 @@
 }
 
 .home-post-card__title {
+  overflow: hidden;
   margin: 0;
   font-size: 1.08rem;
   font-weight: 650;
   line-height: 1.45;
   letter-spacing: 0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .home-post-card__summary {
