@@ -13,6 +13,11 @@
 {{- end }}
 
 <link rel="canonical" href="{{ .Permalink }}">
+{{- $favicon := site.Params.assets.favicon | default `/favicon.ico` | relURL }}
+{{- if hugo.IsServer }}
+  {{- $favicon = printf `%s?v=%d` $favicon now.UnixNano }}
+{{- end }}
+<link rel="icon" href="{{ $favicon }}">
 
 {{- if .IsHome }}
 <script>
