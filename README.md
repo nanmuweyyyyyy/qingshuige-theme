@@ -82,14 +82,6 @@ params:
 
 如果未配置，主题还会依次尝试 `params.avatar`、PaperMod 当前的 `params.assets.favicon`，最后使用 `/favicon.png`，从而兼容清水阁现有项目。
 
-## Vue / Vite
-
-搜索现已使用 Vue Islands 组件，开屏和下拉菜单继续使用原生 JavaScript。搜索启用时，Hugo 在页面底部挂载 frontend/components/SearchPanel.vue。
-
-在主题目录运行 npm ci、npm run build，生成 assets/qingshuige-vue/ 中的单文件 JS 和 CSS；Hugo 为两者添加内容指纹并加载。发布包已包含这些产物，直接运行 Hugo 无需重编译。不要继续使用旧的 static/qingshuige-vue/ 输出或手工替换其子模块。
-
-npm test 会先重新构建，再执行搜索客户端及生产脚本的 DOM 交互回归测试。更多说明见主站根目录的 SEARCH-FIX-README.md。
-
 ## Logo 与头像
 
 主题 Header 预留了 36×36 的 Logo 槽位。默认状态下该槽位透明，因此不会显示虚线框或临时图标；配置 Logo 后会自动填入且不会引起导航布局位移。
