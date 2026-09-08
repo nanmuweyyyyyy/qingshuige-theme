@@ -9,10 +9,6 @@
   {{- $summarySource = .Plain | plainify | strings.TrimSpace -}}
 {{- end -}}
 {{- $summarySource = replaceRE `\s+` " " $summarySource -}}
-{{- $displaySummary := $summarySource -}}
-{{- if gt (strings.RuneCount $summarySource) 16 -}}
-  {{- $displaySummary = printf "%s…" (strings.SliceString $summarySource 0 16) -}}
-{{- end -}}
 
 <article class="home-post-card">
   <a
@@ -22,7 +18,7 @@
     aria-label="阅读文章：{{ $fullTitle }}"
   >
     <h2 class="home-post-card__title">{{ $displayTitle }}</h2>
-    {{- with $displaySummary -}}
+    {{- with $summarySource -}}
       <p class="home-post-card__summary">{{ . }}</p>
     {{- end -}}
   </a>

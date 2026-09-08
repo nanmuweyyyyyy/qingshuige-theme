@@ -99,6 +99,10 @@
 }
 
 .home-post-card__summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   margin: 0.85rem 0 0;
   font-size: 0.79rem;
   line-height: 1.75;
