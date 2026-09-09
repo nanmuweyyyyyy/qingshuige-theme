@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{- $posts := (where .RegularPages "Section" "blog").ByDate.Reverse -}}
+<div class="site-container page-authors">
+  <nav class="author-breadcrumb" aria-label="作者导航">
+    <a href="{{ .Parent.RelPermalink }}"><span aria-hidden="true">←</span> 所有作者</a>
+  </nav>
+
+  <header class="author-profile">
+    <div class="author-profile__identity">
+      <span class="author-avatar author-avatar--large" aria-hidden="true">{{ substr .LinkTitle 0 1 | upper }}</span>
+      <div class="author-profile__body">
+        <p class="author-profile__label">作者</p>
+        <h1 class="author-profile__name">{{ .Title }}</h1>
+        <p class="author-profile__meta">
+          <span>共 {{ len $posts }} 篇文章</span>
+          {{- range first 1 $posts }}
+            <span>最近发布 <time datetime="{{ .Date.Format `2006-01-02T15:04:05Z07:00` }}">{{ .Date.Format "2006-01-02" }}</time></span>
+          {{- end }}
+        </p>
+      </div>
+    </div>
+    {{- with .Content }}
+      <div class="prose article-content author-profile__intro">{{ . }}</div>
+    {{- else }}
+      {{- with .Description }}
+        <p class="author-profile__intro">{{ . }}</p>
+      {{- end }}
+    {{- end }}
+  </header>
+
+  <section aria-labelledby="author-posts-title">
+    <header class="home-recent__header">
+      <h2 id="author-posts-title" class="home-recent__title">全部文章</h2>
+    </header>
+    {{- if $posts }}
+      <div class="home-post-grid">
+        {{- range $posts }}
+          {{ partial "home/article-card.html" . }}
+        {{- end }}
+      </div>
+    {{- else }}
+      <p class="authors-empty">这位作者暂时还没有文章。</p>
+    {{- end }}
+  </section>
+</div>
+{{ end }}

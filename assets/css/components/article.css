@@ -109,6 +109,25 @@
 .article-meta > * {
   display: inline-flex;
   align-items: center;
+  min-width: 0;
+}
+
+.article-meta__author {
+  flex-wrap: wrap;
+  gap: 0.25rem 0.65rem;
+  overflow-wrap: anywhere;
+}
+
+.article-meta__author a {
+  min-width: 0;
+  color: var(--qsg-blue-800);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.article-meta__author a:hover,
+.article-meta__author a:focus-visible {
+  text-decoration: underline;
 }
 
 .article-meta > * + *::before {

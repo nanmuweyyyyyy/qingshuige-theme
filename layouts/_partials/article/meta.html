@@ -1,16 +1,30 @@
-{{- $author := .Params.author | default site.Params.author.name -}}
+{{- $author := .Params.author | default site.Params.author -}}
 {{- $authorTerms := .GetTerms "author" -}}
 
 <div class="article-meta">
 
   {{- with $author }}
-    <span class="article-meta__author">
+    <span class="article-meta__author" aria-label="作者">
       {{- with $authorTerms -}}
         {{- range . -}}
-          <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          <a href="{{ .RelPermalink }}" rel="author">{{ .LinkTitle }}</a>
         {{- end -}}
       {{- else -}}
-        {{ . }}
+        {{- $names := slice -}}
+        {{- $values := slice $author -}}
+        {{- if reflect.IsSlice $author -}}
+          {{- $values = $author -}}
+        {{- end -}}
+        {{- range $values -}}
+          {{- $name := . -}}
+          {{- if reflect.IsMap . -}}
+            {{- $name = .name -}}
+          {{- end -}}
+          {{- with $name -}}
+            {{- $names = $names | append . -}}
+          {{- end -}}
+        {{- end -}}
+        {{ delimit $names "、" }}
       {{- end -}}
     </span>
   {{- end }}
@@ -31,10 +45,3 @@
   {{- end }}
 
 </div>
-<!--如果以后某篇文章没写作者，则自动回退到你 hugo.yaml 里的：
-
-params:
-  author:
-    name: "清水阁"
-
-所以不会出现作者区域完全异常。-->

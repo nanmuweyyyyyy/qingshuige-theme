@@ -5,6 +5,9 @@
 {{- $pageTitle := site.Title -}}
 {{- if not .IsHome -}}
   {{- $pageTitle = printf "%s · %s" .Title site.Title -}}
+  {{- if and (eq .Kind "taxonomy") (eq .Data.Plural "author") (not .File) -}}
+    {{- $pageTitle = printf "所有作者 · %s" site.Title -}}
+  {{- end -}}
 {{- end -}}
 <title>{{ $pageTitle }}</title>
 

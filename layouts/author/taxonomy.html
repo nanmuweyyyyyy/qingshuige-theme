@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{- $authors := .Pages.ByLinkTitle -}}
+<div class="site-container page-authors">
+  <header class="home-recent__header">
+    <h1 class="home-recent__title">{{ if .File }}{{ .Title }}{{ else }}所有作者{{ end }}</h1>
+    <p class="authors-summary">共 {{ len $authors }} 位作者，点击查看他们的文章。</p>
+    {{- with .Content }}
+      <div class="prose article-content authors-intro">{{ . }}</div>
+    {{- end }}
+  </header>
+
+  {{- if $authors }}
+    <ul class="authors-grid" role="list" aria-label="作者列表">
+      {{- range $authors }}
+        {{- $posts := where .RegularPages "Section" "blog" -}}
+        <li class="author-card">
+          <a class="author-card__link" href="{{ .RelPermalink }}">
+            <span class="author-avatar" aria-hidden="true">{{ substr .LinkTitle 0 1 | upper }}</span>
+            <div class="author-card__body">
+              <h2 class="author-card__name">{{ .LinkTitle }}</h2>
+              <p class="author-card__count">{{ len $posts }} 篇文章</p>
+            </div>
+            <span class="author-card__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      {{- end }}
+    </ul>
+  {{- else }}
+    <p class="authors-empty">暂时还没有作者。</p>
+  {{- end }}
+</div>
+{{ end }}

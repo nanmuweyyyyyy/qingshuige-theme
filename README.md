@@ -102,3 +102,21 @@ params:
 ```
 
 它位于主题的 `static/qingshuige/defaults/avatar.svg`，因此即使主站没有头像配置，导航右侧也始终有稳定的默认头像。
+
+## 作者页面
+
+站点配置 `taxonomies.author: author` 后，`/author/` 使用作者卡片，个人页显示文章数、最近发布日期和按日期倒序排列的文章。作者卡片按名称排序，桌面四列、平板两列、手机一列，颜色和间距使用主题变量。作者标识取名字的首个字符。
+
+文章通过 `author: 线粒体` 或 `author: [线粒体, 南木]` 关联作者。卡片数量、个人页统计和文章列表均只计算 `blog` 栏目的已发布文章；多人署名会分别链接到对应作者页。
+
+可在主站添加 `content/author/线粒体/_index.md` 来填写简介：
+
+```yaml
+---
+title: 线粒体
+description: 作者简介
+---
+这里可以继续使用 Markdown 介绍作者。
+```
+
+个人页优先展示正文，没有正文时展示 `description`。`content/author/_index.md` 可自定义作者总览的标题和介绍；未配置时使用“所有作者”。
