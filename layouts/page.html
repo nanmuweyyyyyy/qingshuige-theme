@@ -6,20 +6,23 @@
 
     {{ else }}
 
-        <article class="page">
+        <article class="site-container article-single article-single--blog">
 
-            <header class="page__header">
+          <header class="article-header">
 
-                <h1 class="page__title">
-                    {{ .Title }}
-                </h1>
+            {{ partial "article/categories.html" . }}
 
-            </header>
+            <h1 class="article-title">
+              {{ .Title }}
+            </h1>
 
+          </header>
 
-            <div class="page__content">
-                {{ .Content }}
-            </div>
+          {{ partial "article/toc.html" . }}
+
+          <div class="prose article-content">
+            {{ .Content }}
+          </div>
 
         </article>
 
