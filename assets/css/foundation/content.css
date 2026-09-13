@@ -25,6 +25,8 @@
   font-size: 1.0625rem;
   line-height: 1.9;
 
+  text-autospace: normal;
+
   overflow-wrap: break-word;
 }
 
