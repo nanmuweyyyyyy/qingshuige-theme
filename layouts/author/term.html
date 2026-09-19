@@ -14,7 +14,7 @@
         <p class="author-profile__meta">
           <span>共 {{ len $posts }} 篇文章</span>
           {{- range first 1 $posts }}
-            <span>最近发布 <time datetime="{{ .Date.Format `2006-01-02T15:04:05Z07:00` }}">{{ .Date.Format "2006-01-02" }}</time></span>
+            <span>最近发布 <time class="js-local-date" datetime="{{ .Date.Format `2006-01-02T15:04:05Z07:00` }}">{{ .Date.Format "2006-01-02" }}</time></span>
           {{- end }}
         </p>
       </div>

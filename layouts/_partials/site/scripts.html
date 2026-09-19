@@ -11,6 +11,19 @@
   {{- end -}}
 {{- end -}}
 
+{{- with resources.Get "js/local-date.js" -}}
+  {{- $opts := dict "minify" (not hugo.IsDevelopment) -}}
+  {{- with . | js.Build $opts -}}
+    {{- if hugo.IsDevelopment -}}
+      <script defer src="{{ .RelPermalink }}"></script>
+    {{- else -}}
+      {{- with . | fingerprint -}}
+        <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
 {{- if templates.Exists "_partials/qingshuige-search/scripts.html" -}}
   {{- partial "qingshuige-search/scripts.html" . -}}
 {{- end -}}
