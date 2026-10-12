@@ -1,0 +1,13 @@
+{{ define "main" }}
+<section class="site-container page-not-found" aria-labelledby="not-found-title">
+  <p class="page-not-found__code">404</p>
+  <h1 id="not-found-title">页面不存在</h1>
+  <p class="page-not-found__message">你访问的页面可能已被移除，或链接地址有误。</p>
+  <div class="page-not-found__actions">
+    <a class="page-not-found__home" href="{{ site.Home.RelPermalink }}">返回首页</a>
+    {{ with site.GetPage "/blog" }}
+      <a class="page-not-found__browse" href="{{ .RelPermalink }}">浏览全部文章</a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

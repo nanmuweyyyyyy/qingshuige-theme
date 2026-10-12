@@ -5,6 +5,9 @@
 {{- $pageTitle := site.Title -}}
 {{- if not .IsHome -}}
   {{- $pageTitle = printf "%s · %s" .Title site.Title -}}
+  {{- if eq .Kind "404" -}}
+    {{- $pageTitle = printf "页面不存在 · %s" site.Title -}}
+  {{- end -}}
   {{- if and (eq .Kind "taxonomy") (eq .Data.Plural "author") (not .File) -}}
     {{- $pageTitle = printf "所有作者 · %s" site.Title -}}
   {{- end -}}
@@ -15,7 +18,11 @@
   <meta name="description" content="{{ . | plainify | htmlEscape }}">
 {{- end }}
 
+{{- if eq .Kind "404" }}
+<meta name="robots" content="noindex">
+{{- else }}
 <link rel="canonical" href="{{ .Permalink }}">
+{{- end }}
 {{- $favicon := site.Params.assets.favicon | default `/favicon.ico` | relURL }}
 {{- if hugo.IsServer }}
   {{- $favicon = printf `%s?v=%d` $favicon now.UnixNano }}

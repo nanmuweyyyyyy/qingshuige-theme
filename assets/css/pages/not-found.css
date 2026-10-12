@@ -1,0 +1,49 @@
+.page-not-found {
+  padding-block: var(--qsg-space-6);
+  text-align: center;
+}
+
+.page-not-found__code {
+  margin: 0;
+  color: var(--qsg-blue-700);
+  font-size: clamp(5rem, 16vw, 9rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.page-not-found h1 {
+  margin: var(--qsg-space-3) 0 var(--qsg-space-2);
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.page-not-found__message {
+  margin: 0;
+  color: var(--qsg-muted);
+}
+
+.page-not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--qsg-space-3);
+  margin-top: var(--qsg-space-4);
+}
+
+.page-not-found__home {
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--qsg-radius-sm);
+  color: var(--qsg-paper);
+  background: var(--qsg-blue-700);
+  text-decoration: none;
+  transition: background var(--qsg-transition-fast);
+}
+
+.page-not-found__home:hover {
+  background: var(--qsg-blue-800);
+}
+
+.page-not-found__browse {
+  color: var(--qsg-blue-800);
+  text-underline-offset: 0.2em;
+}
