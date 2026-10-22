@@ -81,7 +81,7 @@ button {
 
 @media (max-width: 43.75rem) {
   .site-container {
-    width: min(calc(100% - 1.25rem), var(--qsg-page-width));
+    width: min(calc(100% - 1.75rem), var(--qsg-page-width));
   }
 
   .site-main,
