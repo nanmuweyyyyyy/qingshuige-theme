@@ -14,6 +14,7 @@ html {
 body {
   margin: 0;
   min-width: 20rem;
+  font-family: sans-serif;
   line-height: 1.7;
   color: var(--qsg-ink);
   background: var(--qsg-paper);
@@ -37,7 +38,10 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-button {
+button,
+input,
+select,
+textarea {
   font: inherit;
 }
 
